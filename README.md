@@ -1,5 +1,3 @@
-![ng-fokus](thumbnail.png)
-
 # ng-fokus
 
 A ng-fokus é uma aplicação da ferramenta do método Pomodoro (gestão de tarefas), baseado no funcionamento do site promofocus. O projeto está desenvolvido em Angular 18 com service worker.
@@ -18,19 +16,20 @@ As técnicas e tecnologias utilizadas no projeto são:
 - `RxJS`: para programação reativa
 - `TypeScript`: linguagem de programação utilizada no desenvolvimento
 
-## 📁 Acesso ao projeto
+## 🛠️ Como rodar o projeto
 
-Você pode [acessar o código fonte do projeto no GitHub](https://github.com/Charlinho/ng-fokus).
+### Pré-requisitos
 
-## 🛠️ Abrir e rodar o projeto
+- `Node.js 20+` e `npm`
+- `Docker` e `Docker Compose` (opcional, para rodar em container)
 
-Para abrir e rodar o projeto, siga os passos abaixo:
+### Rodando localmente (Angular dev server)
 
-1. Clone o repositório do projeto:
+1. Clone o repositório:
    ```bash
-   git clone https://github.com/Charlinho/ng-fokus.git
+   git clone git@github.com:LuizOtavioTG/ng-fokus.git
    ```
-2. Navegue até o diretório do projeto:
+2. Entre na pasta do projeto:
    ```bash
    cd ng-fokus
    ```
@@ -38,12 +37,22 @@ Para abrir e rodar o projeto, siga os passos abaixo:
    ```bash
    npm install
    ```
-4. Execute o projeto:
+4. Inicie o servidor de desenvolvimento:
    ```bash
-   ng serve
+   npx ng serve
    ```
-5. Abra o navegador e acesse `http://localhost:4200/` para ver a aplicação em execução.
+5. Acesse no navegador:
+   `http://localhost:4200/`
 
-## 📚 Mais informações
+### Rodando com Docker Compose
 
-Para mais informações sobre o projeto e suas funcionalidades, visite o [repositório no GitHub](https://github.com/Charlinho/ng-fokus).
+1. Na raiz do projeto, execute:
+   ```bash
+   docker compose up --build -d
+   ```
+2. Acesse no navegador:
+   `http://localhost:3000/`
+3. Para parar os containers:
+   ```bash
+   docker compose down
+   ```
