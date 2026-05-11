@@ -10,6 +10,12 @@ RUN npm install -g @angular/cli@17.0.0
 
 COPY . .
 
+RUN if [ ! -f ngsw-config.json ]; then \
+      ng add @angular/pwa --project=ng-fokus --skip-confirmation; \
+    else \
+      echo "ngsw-config.json already exists, skipping ng add @angular/pwa"; \
+    fi
+
 RUN ng build --configuration production 
 
 
