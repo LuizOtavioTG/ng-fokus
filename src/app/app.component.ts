@@ -4,6 +4,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { TaskManagerComponent } from './shared/components/task-manager/task-manager.component';
 import { TimerControlComponent } from './shared/components/timer-control/timer-control.component';
+import { UpdateService } from './shared/services/update.service';
 
 @Component({
   selector: 'app-root',
@@ -19,5 +20,16 @@ import { TimerControlComponent } from './shared/components/timer-control/timer-c
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'ng-fokus';
+  constructor(
+        private updateService: UpdateService
+    ) {
+    }
+    
+    async ngOnInit() {
+        const hasUpdate = await this.updateService.checkForUpdate();
+        
+        if(hasUpdate) {
+            console.log('Atualização encontrada durante a inicialização')
+        }
+    }
 }
