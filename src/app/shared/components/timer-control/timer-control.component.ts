@@ -128,7 +128,7 @@ export class TimerControlComponent {
       this.notificationService.showNotification('Notificação', {
         body: 'Tempo de foco finalizado!'
 
-      })
+      } )
     } catch (error) {
         console.error("Erro ao enviar a notificação:", error);
       }
