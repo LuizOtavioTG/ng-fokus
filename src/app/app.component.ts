@@ -5,11 +5,14 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { TaskManagerComponent } from './shared/components/task-manager/task-manager.component';
 import { TimerControlComponent } from './shared/components/timer-control/timer-control.component';
 import { UpdateService } from './shared/services/update.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
+    HttpClientModule,
     HeaderComponent,
     BannerComponent,
     TimerControlComponent,

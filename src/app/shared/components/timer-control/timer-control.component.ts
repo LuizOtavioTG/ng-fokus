@@ -1,10 +1,12 @@
 import { Howl } from 'howler';
 import { CommonModule } from '@angular/common';
-import { Component, effect, Inject, inject } from '@angular/core';
+import { Component, effect, Inject, inject, OnInit } from '@angular/core';
 import { ContextService, ContextType } from '../../services/context.service';
 import { FormsModule } from '@angular/forms';
 import { AudioService } from '../../services/audio.service';
 import { NotificationService } from '../../services/notification.service';
+import { SwPush } from '@angular/service-worker';
+import { NotificationMessage } from '../../services/notification-message.js';
 
 @Component({
   selector: 'app-timer-control',
@@ -16,7 +18,7 @@ import { NotificationService } from '../../services/notification.service';
   templateUrl: './timer-control.component.html',
   styleUrl: './timer-control.component.scss'
 })
-export class TimerControlComponent {
+export class TimerControlComponent implements OnInit {
 
   timerFormat = '';
 
@@ -34,6 +36,7 @@ export class TimerControlComponent {
   context = this.contextService.contextSignal$;
 
   constructor(
+    private swPush:  SwPush,
     private notificationService: NotificationService
   ) {
     effect(() => {
@@ -41,6 +44,12 @@ export class TimerControlComponent {
       this.configTimer();
     });
   }
+  ngOnInit(): void {
+    this.swPush.messages.subscribe((message) => {
+        const notificationMessage = message as NotificationMessage;
+        this.notificationService.showNotification('Notification', {body: notificationMessage.body});
+    })
+}
 
   onStartClick(): void {
     this.intervalId = setInterval(() => {

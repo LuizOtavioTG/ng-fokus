@@ -1,14 +1,26 @@
 import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { SwPush } from '@angular/service-worker';
+import { NotificationMessage } from './notification-message.js';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
+  readonly VAPID_PUBLIC_KEY = 'sua-public-key';
+
+  private baseUrl = 'http://localhost:3000';
+
   constructor(
+    private swPush: SwPush,
+    private httpClient: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) { }
+  ) {
+    this.subscribeToNotifications();
+  }
 
   requestPermission(): Promise<NotificationPermission> {
     if (this.notificationSupported) {
@@ -33,5 +45,16 @@ export class NotificationService {
 
   private get notificationSupported(): boolean {
     return isPlatformBrowser(this.platformId) && 'Notification' in window;
+  }
+
+  private subscribeToNotifications() {
+    this.swPush.requestSubscription({
+      serverPublicKey: this.VAPID_PUBLIC_KEY
+    }).then(subscription => {
+      this.sendSubscriptionToServer(subscription).subscribe();
+    })
+  }
+  private sendSubscriptionToServer(subscription: PushSubscription): Observable<NotificationMessage> {
+    return this.httpClient.post<NotificationMessage>(`${this.baseUrl}/subscribe`, subscription);
   }
 }
