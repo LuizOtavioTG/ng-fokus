@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class NotificationService {
 
-  readonly VAPID_PUBLIC_KEY = 'sua-public-key';
+  readonly VAPID_PUBLIC_KEY = 'BGEUqnVxnRLLXSG7aN1JH106_BsY70qmAKGlBEcxqbGgZZWs1CX8jZcqZpbc8LgiIrQsL-v981hYzpX4GyfjkLk';
 
   private baseUrl = 'http://localhost:3000';
 
@@ -23,7 +23,7 @@ export class NotificationService {
   }
 
   requestPermission(): Promise<NotificationPermission> {
-    if (this.notificationSupported) {
+    if (!this.notificationSupported) {
       return Promise.reject('Notifications not supported');
     }
 

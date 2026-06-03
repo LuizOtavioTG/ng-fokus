@@ -9,6 +9,7 @@ import { FooterComponent } from './shared/components/footer/footer.component.js'
 import { UpdateService } from './shared/services/update.service.js';
 import { NotificationService } from './shared/services/notification.service.js';
 import { ConnectivityService } from './shared/services/connectivity.service.js';
+import { CacheInspectorService } from './shared/services/cache-inspector.service.js';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit{
   private updateService = inject(UpdateService);
   private notificationService = inject(NotificationService);
   private connectivityService = inject(ConnectivityService);
+  private cacheInspectorService = inject(CacheInspectorService);
 
   constructor() {
     effect(() => {
@@ -50,5 +52,6 @@ export class AppComponent implements OnInit{
     if (hasUpdate) {
       console.log('Atualização encontrada durante a inicialização')
     }
+    this.cacheInspectorService.checkAssetsCache();
   }
 }

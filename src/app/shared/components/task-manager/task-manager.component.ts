@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { TaskListComponent } from './task-list/task-list.component';
-import { TaskItem } from './task-item';
 import { v4 as uuidv4 } from 'uuid';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TaskListComponent } from './task-list/task-list.component.js';
+import { TaskItem } from './task-item.js';
+import { IndexedDBService } from '../../services/indexed-db.service.js';
 
 @Component({
   selector: 'app-task-manager',
@@ -24,7 +25,10 @@ export class TaskManagerComponent {
   tasks: TaskItem[] = [];
   taskItemSelected: TaskItem | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private indexedDBService: IndexedDBService
+  ) {
     this.taskForm = this.fb.group({
       description: ['', Validators.required]
     });
@@ -54,6 +58,8 @@ export class TaskManagerComponent {
     };
 
     this.tasks.push(taskItem);
+
+    this.indexedDBService.addTask(taskItem).subscribe();
 
     this.hasShowForm = false;
   }
