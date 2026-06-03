@@ -59,4 +59,15 @@ export class IndexedDBService {
       }))
     )
   }
+
+  listAllTasks(): Observable<TaskItem[]> {
+    return this.waitForDB().pipe(
+      switchMap(() => new Observable<TaskItem[]>(obs => {
+        const req = this.store$.getAll();
+        req.onsuccess = () => { obs.next(req.result); obs.complete(); };
+        req.onerror = () => obs.error('List tasks failed');
+      }))
+    )
+  }
+
 }
