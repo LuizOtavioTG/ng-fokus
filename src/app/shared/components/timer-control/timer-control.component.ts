@@ -1,12 +1,11 @@
-import { Howl } from 'howler';
 import { CommonModule } from '@angular/common';
 import { Component, effect, Inject, inject, OnInit } from '@angular/core';
-import { ContextService, ContextType } from '../../services/context.service';
 import { FormsModule } from '@angular/forms';
-import { AudioService } from '../../services/audio.service';
-import { NotificationService } from '../../services/notification.service';
 import { SwPush } from '@angular/service-worker';
 import { NotificationMessage } from '../../services/notification-message.js';
+import { ContextService, ContextType } from '../../services/context.service.js';
+import { AudioService } from '../../services/audio.service.js';
+import { NotificationService } from '../../services/notification.service.js';
 
 @Component({
   selector: 'app-timer-control',
